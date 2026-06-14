@@ -14,12 +14,12 @@ const sharedUse = {
   locale: 'en-US',
   timezoneId: 'Asia/Colombo',
   viewport: null,
-  launchOptions: {
-    args: ['--start-maximized'],
-  },
   trace: 'retain-on-failure',
   screenshot: 'on',
   video: 'retain-on-failure',
+};
+const chromiumLaunchOptions = {
+  args: ['--start-maximized'],
 };
 
 const ignoredTests = [/auth\.setup\.js/, /cart\.spec\.js/, /NotAGoodPractice\.spec\.js/];
@@ -41,7 +41,10 @@ module.exports = defineConfig({
     {
       name: 'chromium',
       testIgnore: ignoredTests,
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: chromiumLaunchOptions,
+      },
     },
     {
       name: 'chromium-cart',
@@ -50,6 +53,7 @@ module.exports = defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         storageState: AUTH_FILE,
+        launchOptions: chromiumLaunchOptions,
       },
     },
     {
